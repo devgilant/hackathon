@@ -7,4 +7,9 @@ var timelineSchema = new Schema({
   events: [{type: Schema.Types.ObjectId, ref: ['Event']}]
 });
 
+timelineSchema.static('findByName', function (name, callback) {
+  return this.find({ name: name }, callback);
+});
+
+
 module.exports = mongoose.model('Timeline', timelineSchema);

@@ -114,6 +114,8 @@ app.get('/rest/events', eventController.getRESTEvents);
 app.post('/rest/events', eventController.postRESTEvents);
 app.get('/rest/timelines', timelineController.getRESTTimelines);
 app.post('/rest/timelines', timelineController.postRESTTimelines);
+app.get('/rest/timelines/:name', timelineController.getRESTTimeline);
+app.post('/rest/timelines/:name/events', timelineController.postRESTTimelineEvent);
 
 
 /**
