@@ -16,7 +16,7 @@ function TimelineController() {
     /**
      * Build list of timelines with populated events
      */
-    function loadServices() {
+    function loadTimelines() {
         // call REST backend
         $.getJSON('/rest/timelines', function(data) {
             self.timelines = JSON.parse(data);
