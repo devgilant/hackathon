@@ -88,3 +88,28 @@ exports.postRESTTimelineEvent = function(req, res) {
           }
         );
 };
+
+/**
+ * DELETE /rest/timelines/:name/events/:id
+ * Delete an event (by id) of a timeline.
+ */
+exports.postRESTTimelineEvent = function(req, res) {
+    Timeline
+        .findOneAndUpdate(
+          {name: req.params.name}, 
+          {$pullAll: 
+            {events: req.body.event_id}
+          }, 
+          {
+            safe: true,
+            upsert: true
+          },
+          function(err, timelines) {
+            if (err)
+                respondWithError(res, err);
+            else {
+                res.json(timelines);
+            }
+          }
+        );
+};
