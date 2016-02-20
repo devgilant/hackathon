@@ -1,4 +1,8 @@
 extends layout
 
 block content
-  .row
+  // row for every timeline
+  div(ng-controller="TimelineController as ctrl")
+  .row(ng-repeat="timeline in ctrl.timelines")
+    .label Timeline '{{timeline.name}}'
+
