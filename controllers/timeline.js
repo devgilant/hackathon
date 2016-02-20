@@ -98,7 +98,7 @@ exports.delRESTTimelineEvent = function(req, res) {
         .findOneAndUpdate(
           {name: req.params.name}, 
           {$pullAll: 
-            {events: req.params.id}
+            {events: {_id: req.params.id}}
           }, 
           {
             safe: true,
