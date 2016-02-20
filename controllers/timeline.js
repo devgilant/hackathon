@@ -97,7 +97,7 @@ exports.delRESTTimelineEvent = function(req, res) {
     Timeline
         .findOneAndUpdate(
           {name: req.params.name}, 
-          {$pullAll: 
+          {$pull: 
             {events: {_id: req.params.id}}
           }, 
           {
