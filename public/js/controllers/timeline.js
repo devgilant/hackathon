@@ -1,15 +1,9 @@
 timelineApp.controller('TimelineController', TimelineController);
 
-function TimelineController() {
-    var self = this;
-    // list of `service` value/display objects
-    self.timelines = [];
+function TimelineController($scope, $http) {
+    $scope.timelines = [];
     loadTimelines();
-    self.newTimeline = newTimeline;
 
-    function newTimeline(timeline) {
-        alert("Sorry! creating a new timeline " + timeline + " is not yet supported!");
-    }
     // ******************************
     // Internal methods
     // ******************************
@@ -18,8 +12,9 @@ function TimelineController() {
      */
     function loadTimelines() {
         // call REST backend
-        $.getJSON('/rest/timelines', function(data) {
-            self.timelines = data;
-        });
+        $http.get('/rest/timelines')
+            .success(function(data) {
+                $scope.timelines = data;
+            });
     };
 }
