@@ -31,6 +31,7 @@ dotenv.load({ path: '.env.example' });
 /**
  * Controllers (route handlers).
  */
+var homeController = require('./controllers/home');
 var eventController = require('./controllers/event');
 var timelineController = require('./controllers/timeline');
 
