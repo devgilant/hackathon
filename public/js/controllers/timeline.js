@@ -21,5 +21,5 @@ function TimelineController() {
         $.getJSON('/rest/timelines', function(data) {
             self.timelines = JSON.parse(data);
         });
-    });
+    };
 }
