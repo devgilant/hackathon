@@ -22,11 +22,11 @@ exports.getRESTEvents = function(req, res) {
 };
 
 /**
- * POST /rest/services
+ * POST /rest/events
  * Post a new event with caption, description, startdate, optional enddate, 
  * 	optional array of src in format {srcType, srcURL}.
  */
-exports.postRESTDataTypes = function(req, res) {
+exports.postRESTEvents = function(req, res) {
   var eventEntity = new Event();
   eventEntity.caption = req.body.caption;
   eventEntity.description = req.body.description; 
