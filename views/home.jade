@@ -3,6 +3,6 @@ extends layout
 block content
   // row for every timeline
   div(ng-controller="TimelineController as ctrl")
-    .row(ng-repeat="timeline in ctrl.timelines")     
+    .row(ng-repeat="timeline in timelines")     
       div Timeline {{timeline.name}}
 
