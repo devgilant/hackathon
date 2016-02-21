@@ -49,10 +49,10 @@ block content
 						label Timeline: {{$activeTimeline.name}}
 						br
 						label(for="caption") Baseline:
-						input.form-control(id="caption",type="text")
-						label(for="start") Start:
-						input.form-control(id="start",type="select")
+						select.form-control(id="caption",type="select")
 							option(ng-repeat="baseline in baselines" value="{{baseline._id}}") {{baseline.name}}
+						label(for="start") Start:
+						input.form-control(id="start",type="input")
 					.modal-footer
 						button.btn.btn-default(type="button",data-dismiss="modal") Cancel
 						button.btn.btn-primary(type="button",ng-click="addBaseline()") Add
