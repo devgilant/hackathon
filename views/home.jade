@@ -6,12 +6,16 @@ block content
 	.row
 	// row for every timeline
 	div(ng-controller="TimelineController as ctrl")
-		.row(ng-repeat="timeline in timelines")
-			.navbar.navbar-default.container-fluid
-				.navbar-header
-					span {{timeline.name}}
-				.collapse.navbar-collapse
-					form.navbar-form.navbar-right(role="form")
-						button.btn.btn-default(ng-click="addEvent($index)") Add Event...
-						button.btn.btn-default(ng-click="") Add Baseline...
-			div(id="timeline_{{$index}}", tm-timeline)
+		.panel-group(ng-repeat="timeline in timelines" id="accordion")
+			.panel.panel-default
+				.panel-heading
+					h2
+						a(data-toggle="collapse" data-parent="#accordion" href="#collapse{{timeline._id}}" ng-click="showButtons($index)")
+							span {{timeline.name}}
+						a.hidden(href="#" ng-click="addEvent($index)" id="btnAddEvent{{$index}}")
+							i.fa.fa-calendar-plus-o
+						a.hidden(href="#" ng-click="addBaseline($index)" id="btnAddBaseline{{$index}}")
+							i.fa.fa-info
+				div.panel-collapse.collapse(id="collapse{{timeline._id}}")
+					.panel-body
+						div(id="timeline_{{$index}}", tm-timeline)
