@@ -34,13 +34,13 @@ function TimelineController($scope, $http) {
         // map to vis.js items
         var items = events.map(function(event){
          var item = {
-            "start": event.startDate,
+            "start": new Date(event.startDate),
             "content": event.caption,
             "description": event.description,
             "editable": false
          };
          if (event.endDate)
-            item.end = event.endDate;
+            item.end = new Date(event.endDate);
          return item;
         });
         return items;

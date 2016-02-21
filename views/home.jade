@@ -7,4 +7,11 @@ block content
 	// row for every timeline
 	div(ng-controller="TimelineController as ctrl")
 		.row(ng-repeat="timeline in timelines")
+			.navbar.navbar-default.container-fluid
+				.navbar-header
+					span {{timeline.name}}
+				.collapse.navbar-collapse
+					form.navbar-form.navbar-right(role="form")
+						button.btn.btn-default Add Event...
+						button.btn.btn-default Add Baseline...
 			div(id="timeline_{{$index}}", tm-timeline)
