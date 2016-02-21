@@ -45,18 +45,16 @@ function TimelineController($scope, $http) {
     function addBaseline() {
         // get baseline details
         var baselineName = $('#addBaselineModal #name option:selected').text();
-        $http.get('/rest/baselines/'+baselineName)
+        $http.get('/rest/baselines/' + baselineName)
             .success(function(data) {
                 var baseline = data;
                 baseline.events = loadTimelineEvents(baseline.events, 2);
                 var timeline = $scope.timelines[$scope.activeTimelineIndex];
-                $('#timeline_'+activeTimelineIndex).setData({
-                    "groups": [
-                        {"id": 1, "content": timeline.name},
-                        {"id": 2, "content": baseline.name}
-                        ],
-                    "items": timeline.events.join(baseline.events)
-                });
+                new vis.Timeline($('#timeline_' + $scope.activeTimelineIndex)[0],
+                    timeline.events.join(baseline.events), [
+                        { "id": 1, "content": timeline.name },
+                        { "id": 2, "content": baseline.name }
+                    ], {});
                 $('#addBaselineModal').modal('hide');
             });
     }
@@ -104,7 +102,7 @@ function TimelineController($scope, $http) {
         return items;
     };
 
-    $scope.accordionOpen = function (i) {
+    $scope.accordionOpen = function(i) {
         $scope.activeTimelineIndex = i;
         $('.btn-timeline').addClass('hidden');
         $('#btnAddEvent_' + i).removeClass('hidden');
