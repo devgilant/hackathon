@@ -9,7 +9,7 @@ block content
 		uib-accordion
 			uib-accordion-group(ng-repeat="timeline in timelines" is-open="timeline._id === activeTimeline._id")
 				uib-accordion-heading
-					span(ng-click="accordionOpen(timeline, $index)") {{timeline.name}}
+					span(ng-click="accordionOpen($index)") {{timeline.name}}
 					a.btn-timeline.hidden(href="#" data-toggle="modal" ng-click="doNothing($event)" data-target="#addEventModal" id="btnAddEvent_{{$index}}")
 						i.fa.fa-calendar-plus-o
 					a.btn-timeline.hidden(href="#" data-toggle="modal" data-target="#addBaselineModal" id="btnAddBaseline_{{$index}}")
@@ -48,8 +48,8 @@ block content
 					.modal-body.form-group.btn-group
 						label Timeline: {{$activeTimeline.name}}
 						br
-						label(for="caption") Baseline:
-						select.form-control(id="caption",type="select")
+						label(for="name") Baseline:
+						select.form-control(id="name")
 							option(ng-repeat="baseline in baselines" value="{{baseline._id}}") {{baseline.name}}
 						label(for="start") Start:
 						input.form-control(id="start",type="input")

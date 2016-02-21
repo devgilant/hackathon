@@ -15,21 +15,22 @@ function TimelineController($scope, $http) {
     loadTimelines();
     loadBaselines();
     $scope.addEvent = addEvent;
-    $scope.activeTimeline = null;
+    $scope.addBaseline = addBaseline;
+    $scope.activeTimelineindex = -1;
 
     function addEvent() {
-        // use scope.$index to find out which timeline are we on?
-        var timeline = $scope.activeTimeline;
+        var timeline = $scope.timelines[$scope.activeTimelineIndex];
         //console.log('timeline name: ' + timeline.name);
         // get event details from form
-        var caption = $('#addEventModal #caption').val();
-        var desc = $('#addEventModal #description').val();
-        var startDate = new Date($('#addEventModal #start').val());
-        $http.post('/rest/events', {
-                "startDate": startDate,
-                "description": desc,
-                "caption": caption
-            })
+        var event_date = {};
+        event_date.caption = $('#addEventModal #caption').val();
+        event_date.description = $('#addEventModal #description').val();
+        event_date.startDate = new Date($('#addEventModal #start').val());
+        var endDate = new Date($('#addEventModal #end').val());
+        if (endDate && endDate.length > 0)
+            event_data.endDate = new Date(endDate);
+
+        $http.post('/rest/events', event_data)
             .success(function(data) {
                 // get event id and add it to the timeline events
                 var event_id = data._id;
@@ -38,6 +39,25 @@ function TimelineController($scope, $http) {
                         // update UI
                         $('#addEventModal').modal('hide');
                     });
+            });
+    }
+
+    function addBaseline() {
+        // get baseline details
+        var baselineName = $('#addBaselineModal #name option:selected').text();
+        $http.get('/rest/baselines/'+baselineName)
+            .success(function(data) {
+                var baseline = data;
+                baseline.events = loadTimelineEvents(baseline.events, 2);
+                var timeline = $scope.timelines[$scope.activeTimelineIndex];
+                $('#timeline_'+activeTimelineIndex).setData({
+                    "groups": [
+                        {"id": 1, "content": timeline.name},
+                        {"id": 2, "content": baseline.name}
+                        ],
+                    "items": timeline.events.join(baseline.events)
+                });
+                $('#addBaselineModal').modal('hide');
             });
     }
 
@@ -52,10 +72,10 @@ function TimelineController($scope, $http) {
         $http.get('/rest/timelines')
             .success(function(data) {
                 $.each(data, function(index, timeline) {
-                    timeline.events = loadTimelineEvents(timeline.events);
+                    timeline.events = loadTimelineEvents(timeline.events, 1);
                 });
                 $scope.timelines = data;
-                $scope.activeTimeline = $scope.timelines[0];
+                $scope.activeTimelineIndex = 0;
             });
     };
 
@@ -67,14 +87,15 @@ function TimelineController($scope, $http) {
             });
     };
 
-    function loadTimelineEvents(events) {
+    function loadTimelineEvents(events, group) {
         // map to vis.js items
         var items = events.map(function(event) {
             var item = {
                 "start": new Date(event.startDate),
                 "content": event.caption,
                 "description": event.description,
-                "editable": false
+                "editable": false,
+                "group": group
             };
             if (event.endDate)
                 item.end = new Date(event.endDate);
@@ -83,8 +104,8 @@ function TimelineController($scope, $http) {
         return items;
     };
 
-    $scope.accordionOpen = function (timeline, i) {
-        $scope.activeTimeline = timeline;
+    $scope.accordionOpen = function (i) {
+        $scope.activeTimelineIndex = i;
         $('.btn-timeline').addClass('hidden');
         $('#btnAddEvent_' + i).removeClass('hidden');
         $('#btnAddBaseline_' + i).removeClass('hidden');
