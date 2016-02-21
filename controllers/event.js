@@ -41,6 +41,6 @@ exports.postRESTEvents = function(req, res) {
       if (err)
         respondWithError(res, err);
       else
-        res.json({ message: 'Event created!' });
+        res.json(eventEntity);
   });
 }
