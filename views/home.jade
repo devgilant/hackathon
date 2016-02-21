@@ -17,16 +17,15 @@ block content
 			div(id="timeline_{{$index}}", tm-timeline)
 		// Modal
 		div.modal.fade(id="addEventModal",role="dialog")
-  			.modal-dialog
-    			// Modal content
-    			.modal-content
-      				.modal-header
-        				button.close(type="button",data-dismiss="modal") Cancel
-        				h4.modal-title Add Event
-      				.modal-body
-      					span Index:
-      					span(id="index")
-      				.modal-footer
-        				button.btn.btn-default(type="button",data-dismiss="modal") Cancel
-        				button.btn.btn-primary(type="button",data-dismiss="modal") Add
-
+			.modal-dialog
+				// Modal content
+				.modal-content
+					.modal-header
+						button.close(type="button",data-dismiss="modal") Cancel
+						h4.modal-title Add Event
+					.modal-body
+						span Index:
+						span(id="index")
+					.modal-footer
+						button.btn.btn-default(type="button",data-dismiss="modal") Cancel
+						button.btn.btn-primary(type="button",data-dismiss="modal") Add
