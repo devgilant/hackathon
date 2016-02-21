@@ -19,12 +19,14 @@ function TimelineController($scope, $http) {
         // use scope.$index to find out which timeline are we on?
         var timeline = $scope.timelines[timeline_index];
         //console.log('timeline name: ' + timeline.name);
-        // show a form for adding event details
-        
+        // get event details from form
+        var caption = $('#addEventModal #caption').val();
+        var desc = $('#addEventModal #description').val();
+        var startDate = new Date($('#addEventModal #start').val());
         $http.post('/rest/events', {
-                "startDate": new Date(),
-                "description": "a second desc",
-                "caption": "second"
+                "startDate": startDate,
+                "description": desc,
+                "caption": caption
             })
             .success(function(data) {
                 // get event id and add it to the timeline events
