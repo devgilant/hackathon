@@ -19,3 +19,24 @@ block content
 				div.panel-collapse.collapse(id="collapse{{timeline._id}}")
 					.panel-body
 						div(id="timeline_{{$index}}", tm-timeline)
+		div.modal.fade(id="addEventModal",role="dialog")
+			.modal-dialog
+				// Modal content
+				.modal-content
+					.modal-header
+						button.close(type="button",data-dismiss="modal") Cancel
+						h4.modal-title Add Event
+					.modal-body.form-group
+						label Timeline index:
+						span(id="index")
+						label(for="caption") Caption:
+						input.form-control(id="caption",type="text")
+						label(for="description") Description:
+						input.form-control(id="description",type="text")
+						label(for="start") Start:
+						input.form-control(id="start",type="text")
+						label(for="start") End:
+						input.form-control(id="end",type="text")
+					.modal-footer
+						button.btn.btn-default(type="button",data-dismiss="modal") Cancel
+						button.btn.btn-primary(type="button",ng-click="addEvent($('#addEventModal #index').text())") Add
