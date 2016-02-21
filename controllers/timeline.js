@@ -191,7 +191,7 @@ exports.postRESTBaselineEvent = function(req, res) {
  * DELETE /rest/baselines/:name/events/:id
  * Delete an event (by id) of a timeline.
  */
-exports.delRESTTimelineEvent = function(req, res) {
+exports.delRESTBaselineEvent = function(req, res) {
     Timeline
         .findOneAndUpdate(
           {name: req.params.name, type: 'baseline'}, 
