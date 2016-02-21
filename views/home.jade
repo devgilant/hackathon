@@ -7,4 +7,4 @@ block content
 	// row for every timeline
 	div(ng-controller="TimelineController as ctrl")
 		.row(ng-repeat="timeline in timelines")
-			div(id="timeline_{{timeline._id}}", ng-init="createTimeline($(this),{{timeline}})")
+			div(id="timeline_{{$index}}", tm-timeline)
