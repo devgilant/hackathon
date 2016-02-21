@@ -12,7 +12,6 @@ timelineApp.directive('tmTimeline', TimelineDirective);
 function TimelineController($scope, $http) {
     $scope.timelines = [];
     loadTimelines();
-    $scope.createTimeline = createTimeline;
 
     // ******************************
     // Internal methods
