@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var srcTypes = 'audio image video'.split(' ')
+var srcTypes = 'audio image video'.split(' ');
 
 var eventSchema = new Schema({
   caption: String,

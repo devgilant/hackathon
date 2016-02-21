@@ -117,6 +117,11 @@ app.post('/rest/timelines', timelineController.postRESTTimelines);
 app.get('/rest/timelines/:name', timelineController.getRESTTimeline);
 app.post('/rest/timelines/:name/events', timelineController.postRESTTimelineEvent);
 app.delete('/rest/timelines/:name/events/:id', timelineController.delRESTTimelineEvent);
+app.get('/rest/baselines', timelineController.getRESTBaselines);
+app.post('/rest/baselines', timelineController.postRESTBaselines);
+app.get('/rest/baselines/:name', timelineController.getRESTBaseline);
+app.post('/rest/baselines/:name/events', timelineController.postRESTBaselineEvent);
+app.delete('/rest/baselines/:name/events/:id', timelineController.delRESTBaselineEvent);
 
 
 /**

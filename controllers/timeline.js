@@ -14,11 +14,11 @@ function respondWithError(res, err) {
 
 /**
  * GET /rest/timelines
- * Get a json of service documents.
+ * Get a json of timeline documents.
  */
 exports.getRESTTimelines = function(req, res) {
     Timeline
-        .find({})
+        .findTimelines({})
         .populate('events')
         .exec(function(err, timelines) {
             if (err)
@@ -36,14 +36,45 @@ exports.getRESTTimelines = function(req, res) {
 exports.postRESTTimelines = function(req, res) {
     var timeline = new Timeline();
     timeline.name = req.body.name;
-    timeline.type = req.body.type;
+    timeline.type = 'timeline';
     timeline.save(function(err) {
         if (err)
             respondWithError(res, err);
         else
-            res.json({
-                message: 'Timeline created!'
-            });
+            res.json(timeline);
+    });
+}
+
+/**
+ * GET /rest/baselines
+ * Get a json of baseline documents.
+ */
+exports.getRESTBaselines = function(req, res) {
+    Timeline
+        .findBaselines({})
+        .populate('events')
+        .exec(function(err, timelines) {
+            if (err)
+                respondWithError(res, err);
+            else {
+                res.json(timelines);
+            }
+        });
+};
+
+/**
+ * POST /rest/baselines
+ * Post a new baseline with name and no events.
+ */
+exports.postRESTBaselines = function(req, res) {
+    var timeline = new Timeline();
+    timeline.name = req.body.name;
+    timeline.type = 'baseline';
+    timeline.save(function(err) {
+        if (err)
+            respondWithError(res, err);
+        else
+            res.json(timeline);
     });
 }
 
@@ -53,7 +84,24 @@ exports.postRESTTimelines = function(req, res) {
  */
 exports.getRESTTimeline = function(req, res) {
     Timeline
-        .findByName(req.params.name)
+        .findTimelineByName(req.params.name)
+        .populate('events')
+        .exec(function(err, timelines) {
+            if (err)
+                respondWithError(res, err);
+            else {
+                res.json(timelines);
+            }
+        });
+};
+
+/**
+ * GET /rest/baselines/:name
+ * Get a json of a specific baseline document.
+ */
+exports.getRESTBaseline = function(req, res) {
+    Timeline
+        .findBaselineByName(req.params.name)
         .populate('events')
         .exec(function(err, timelines) {
             if (err)
@@ -71,7 +119,7 @@ exports.getRESTTimeline = function(req, res) {
 exports.postRESTTimelineEvent = function(req, res) {
     Timeline
         .findOneAndUpdate(
-          {name: req.params.name}, 
+          {name: req.params.name, type: 'timeline'}, 
           {$push: 
             {events: req.body.event_id}
           }, 
@@ -96,7 +144,7 @@ exports.postRESTTimelineEvent = function(req, res) {
 exports.delRESTTimelineEvent = function(req, res) {
     Timeline
         .findOneAndUpdate(
-          {name: req.params.name}, 
+          {name: req.params.name, type: 'timeline'}, 
           {$pull: 
             {events: req.params.id}
           }, 
@@ -109,6 +157,56 @@ exports.delRESTTimelineEvent = function(req, res) {
                 respondWithError(res, err);
             else {
                 res.json(timelines);
+            }
+          }
+        );
+};
+
+/**
+ * POST /rest/baselines/:name/events
+ * Add an event (by id) to a baseline.
+ */
+exports.postRESTBaselineEvent = function(req, res) {
+    Timeline
+        .findOneAndUpdate(
+          {name: req.params.name, type: 'baseline'}, 
+          {$push: 
+            {events: req.body.event_id}
+          }, 
+          {
+            safe: true,
+            upsert: true
+          },
+          function(err, timeline) {
+            if (err)
+                respondWithError(res, err);
+            else {
+                res.json(timeline);
+            }
+          }
+        );
+};
+
+/**
+ * DELETE /rest/baselines/:name/events/:id
+ * Delete an event (by id) of a timeline.
+ */
+exports.delRESTTimelineEvent = function(req, res) {
+    Timeline
+        .findOneAndUpdate(
+          {name: req.params.name, type: 'baseline'}, 
+          {$pull: 
+            {events: req.params.id}
+          }, 
+          {
+            safe: true,
+            upsert: true
+          },
+          function(err, timeline) {
+            if (err)
+                respondWithError(res, err);
+            else {
+                res.json(timeline);
             }
           }
         );
