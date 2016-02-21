@@ -12,7 +12,7 @@ block content
 					span(ng-click="accordionOpen(timeline, $index)") {{timeline.name}}
 					a.btn-timeline.hidden(href="#" data-toggle="modal" ng-click="doNothing($event)" data-target="#addEventModal" id="btnAddEvent_{{$index}}")
 						i.fa.fa-calendar-plus-o
-					a.btn-timeline.hidden(href="#" ng-click="addBaseline($index, $event)" id="btnAddBaseline_{{$index}}")
+					a.btn-timeline.hidden(href="#" data-toggle="modal" data-target="#addBaselineModal" id="btnAddBaseline_{{$index}}")
 						i.fa.fa-info
 				div(id="timeline_{{$index}}", tm-timeline)
 		// Modal
@@ -38,7 +38,7 @@ block content
 						button.btn.btn-default(type="button",data-dismiss="modal") Cancel
 						button.btn.btn-primary(type="button",ng-click="addEvent()") Add
 		// Modal
-		div.modal.fade(id="addBaseline",role="dialog")
+		div.modal.fade(id="addBaselineModal",role="dialog")
 			.modal-dialog
 				// Modal content
 				.modal-content
