@@ -1,8 +1,12 @@
 extends layout
 
 block content
-  // row for every timeline
-  div(ng-controller="TimelineController as ctrl")
-    .row(ng-repeat="timeline in timelines")     
-      div Timeline {{timeline.name}}
+	.row
+	.row
+	.row
+	// row for every timeline
+	div(ng-controller="TimelineController as ctrl")
+		.row(ng-repeat="timeline in timelines")
+			div(id="timeline_{{timeline.id}}")
+			script new vis.Timeline($('#timeline_{{timeline.id}}', {{timeline.events}}, {}});
 
