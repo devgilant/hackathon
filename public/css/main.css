@@ -11755,4 +11755,10 @@ nav.navbar.navbar-default {
   margin-right: -30px;
 }
 
+a.btn-timeline {
+  float: right;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 /*# sourceMappingURL=main.css.map */

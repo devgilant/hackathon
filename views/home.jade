@@ -12,9 +12,9 @@ block content
 					h2
 						a(data-toggle="collapse" data-parent="#accordion" href="#collapse{{timeline._id}}" ng-click="showButtons($index)")
 							span {{timeline.name}}
-						a.hidden(href="#" data-toggle="modal" data-target="#addEventModal" id="btnAddEvent_{{$index}}")
+						a.btn-timeline(href="#" data-toggle="modal" data-target="#addEventModal" id="btnAddEvent_{{$index}}")
 							i.fa.fa-calendar-plus-o
-						a.hidden(href="#" ng-click="addBaseline($index)" id="btnAddBaseline_{{$index}}")
+						a.btn-timeline(href="#" ng-click="addBaseline($index)" id="btnAddBaseline_{{$index}}")
 							i.fa.fa-info
 				div.panel-collapse.collapse(id="collapse{{timeline._id}}")
 					.panel-body
