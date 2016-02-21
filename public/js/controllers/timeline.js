@@ -1,5 +1,5 @@
 timelineApp.controller('TimelineController', TimelineController);
-timelineApp.directive('tm-timeline', TimelineDirective);
+timelineApp.directive('tmTimeline', TimelineDirective);
 
 /*
 * Using vis.js, timelines have a data set of items, and optionally groups
@@ -13,11 +13,6 @@ function TimelineController($scope, $http) {
     $scope.timelines = [];
     loadTimelines();
     $scope.createTimeline = createTimeline;
-
-    function createTimeline(index) {
-        var element = document.getElementById('timeline_'+index);
-        new vis.Timeline(element, $scope.timelines[index].events, {});
-    }
 
     // ******************************
     // Internal methods
@@ -57,7 +52,6 @@ function TimelineController($scope, $http) {
 
 function TimelineDirective($compile) {
     return function (scope, element, attrs) {
-        var elementID = element.id.substring('timeline_'.length);
-        new vis.Timeline(element, scope.timelines[index].events, {});
+        new vis.Timeline(element[0], scope.timelines[scope.$index].events, {});
     };
 }
