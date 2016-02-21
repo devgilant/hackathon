@@ -7,7 +7,7 @@ block content
 	// row for every timeline
 	div(ng-controller="TimelineController as ctrl")
 		uib-accordion
-			uib-accordion-group(ng-repeat="timeline in timelines" is-open="timeline._id === activeTimeline._id")
+			uib-accordion-group(ng-repeat="timeline in timelines" is-open="timeline._id === timelines[activeTimelineIndex]._id")
 				uib-accordion-heading
 					span(ng-click="accordionOpen($index)") {{timeline.name}}
 					a.btn-timeline.hidden(href="#" data-toggle="modal" ng-click="doNothing($event)" data-target="#addEventModal" id="btnAddEvent_{{$index}}")

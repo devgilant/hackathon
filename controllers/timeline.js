@@ -90,7 +90,7 @@ exports.getRESTTimeline = function(req, res) {
             if (err)
                 respondWithError(res, err);
             else {
-                res.json(timelines);
+                res.json(timelines[0]);
             }
         });
 };
@@ -107,7 +107,7 @@ exports.getRESTBaseline = function(req, res) {
             if (err)
                 respondWithError(res, err);
             else {
-                res.json(timelines);
+                res.json(timelines[0]);
             }
         });
 };
