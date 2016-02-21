@@ -11,13 +11,13 @@ timelineApp.directive('tmTimeline', TimelineDirective);
 
 function TimelineController($scope, $http) {
     $scope.timelines = [];
-    loadTimelines();#
+    loadTimelines();
     $scope.addEvent = addEvent;
 
 
-    function addEvent() {
+    function addEvent(timeline_index) {
         // use scope.$index to find out which timeline are we on?
-        var timeline = $scope.timelines[$scope.index];
+        var timeline = $scope.timelines[timeline_index];
         console.log('timeline name: ' + timeline.name);
         $http.post('/rest/events', {
                 "startDate": "2016-02-21T18:18:00.000Z",
