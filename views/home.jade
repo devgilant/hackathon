@@ -21,10 +21,10 @@ block content
 				// Modal content
 				.modal-content
 					.modal-header
-						button.close(type="button",data-dismiss="modal")
+						button.close(type="button",data-dismiss="modal")&times;
 						h4.modal-title Add Event
 					.modal-body.form-group
-						label Timeline: {{$activeTimeline}}
+						label Timeline: {{$activeTimeline.name}}
 						br
 						label(for="caption") Caption:
 						input.form-control(id="caption",type="text")
@@ -37,3 +37,22 @@ block content
 					.modal-footer
 						button.btn.btn-default(type="button",data-dismiss="modal") Cancel
 						button.btn.btn-primary(type="button",ng-click="addEvent()") Add
+		// Modal
+		div.modal.fade(id="addBaseline",role="dialog")
+			.modal-dialog
+				// Modal content
+				.modal-content
+					.modal-header
+						button.close(type="button",data-dismiss="modal")&times;
+						h4.modal-title Add Baseline
+					.modal-body.form-group.btn-group
+						label Timeline: {{$activeTimeline.name}}
+						br
+						label(for="caption") Baseline:
+						input.form-control(id="caption",type="text")
+						label(for="start") Start:
+						input.form-control(id="start",type="select")
+							option(ng-repeat="baseline in baselines" value="{{baseline._id}}") {{baseline.name}}
+					.modal-footer
+						button.btn.btn-default(type="button",data-dismiss="modal") Cancel
+						button.btn.btn-primary(type="button",ng-click="addBaseline()") Add

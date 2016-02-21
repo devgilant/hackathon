@@ -11,7 +11,9 @@ timelineApp.directive('tmTimeline', TimelineDirective);
 
 function TimelineController($scope, $http) {
     $scope.timelines = [];
+    $scope.baselines = [];
     loadTimelines();
+    loadBaselines();
     $scope.addEvent = addEvent;
     $scope.activeTimeline = null;
 
@@ -54,6 +56,14 @@ function TimelineController($scope, $http) {
                 });
                 $scope.timelines = data;
                 $scope.activeTimeline = $scope.timelines[0];
+            });
+    };
+
+    function loadBaselines() {
+        // call REST backend
+        $http.get('/rest/baselines')
+            .success(function(data) {
+                $scope.baselines = data;
             });
     };
 
