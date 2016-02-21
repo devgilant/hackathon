@@ -73,6 +73,13 @@ function TimelineController($scope, $http) {
         return items;
     };
 
+    $scope.accordionOpen = function (timeline, i) {
+        $scope.activeTimeline = timeline;
+        $('.btn-timeline').addClass('hidden');
+        $('#btnAddEvent_' + i).removeClass('hidden');
+        $('#btnAddBaseline_' + i).removeClass('hidden');
+    };
+
 }
 
 

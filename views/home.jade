@@ -6,19 +6,15 @@ block content
 	.row
 	// row for every timeline
 	div(ng-controller="TimelineController as ctrl")
-		.panel-group(ng-repeat="timeline in timelines" id="accordion")
-			.panel.panel-default
-				.panel-heading
-					h2
-						a(data-toggle="collapse" data-parent="#accordion" href="#collapse{{timeline._id}}" ng-click="showButtons($index)")
-							span {{timeline.name}}
-						a.btn-timeline(href="#" data-toggle="modal" data-target="#addEventModal" id="btnAddEvent_{{$index}}")
-							i.fa.fa-calendar-plus-o
-						a.btn-timeline(href="#" ng-click="addBaseline($index)" id="btnAddBaseline_{{$index}}")
-							i.fa.fa-info
-				div.panel-collapse.collapse(id="collapse{{timeline._id}}")
-					.panel-body
-						div(id="timeline_{{$index}}", tm-timeline)
+		uib-accordion
+			uib-accordion-group(ng-repeat="timeline in timelines")
+				uib-accordion-heading
+					span(ng-click="accordionOpen(timeline, $index)") {{timeline.name}}
+					a.btn-timeline.hidden(href="#" data-toggle="modal" data-target="#addEventModal" id="btnAddEvent_{{$index}}")
+						i.fa.fa-calendar-plus-o
+					a.btn-timeline.hidden(href="#" ng-click="addBaseline($index)" id="btnAddBaseline_{{$index}}")
+						i.fa.fa-info
+				div(id="timeline_{{$index}}", tm-timeline)
 		// Modal
 		div.modal.fade(id="addEventModal",role="dialog")
 			.modal-dialog
