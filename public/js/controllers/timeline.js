@@ -18,21 +18,20 @@ function TimelineController($scope, $http) {
     function addEvent(timeline_index) {
         // use scope.$index to find out which timeline are we on?
         var timeline = $scope.timelines[timeline_index];
-        console.log('timeline name: ' + timeline.name);
+        //console.log('timeline name: ' + timeline.name);
+        // show a form for adding event details
+        
         $http.post('/rest/events', {
-                "startDate": "2016-02-21T18:18:00.000Z",
+                "startDate": new Date(),
                 "description": "a second desc",
                 "caption": "second"
             })
             .success(function(data) {
                 // get event id and add it to the timeline events
-                console.log('data: '+data);
-                console.log('data: '+JSON.stringify(data));
                 var event_id = data._id;
-                console.log('event id: '+event_id);
                 $http.post('/rest/timelines/' + timeline.name + '/events', { "event_id": event_id })
                     .success(function(data) {
-
+                        // update UI
                     });
             });
     }
