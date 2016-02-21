@@ -12,23 +12,24 @@ block content
 					h2
 						a(data-toggle="collapse" data-parent="#accordion" href="#collapse{{timeline._id}}" ng-click="showButtons($index)")
 							span {{timeline.name}}
-						a.hidden(href="#" ng-click="addEvent($index)" id="btnAddEvent{{$index}}")
+						a.hidden(href="#" data-toggle="modal" data-target="#addEventModal" id="btnAddEvent_{{$index}}")
 							i.fa.fa-calendar-plus-o
-						a.hidden(href="#" ng-click="addBaseline($index)" id="btnAddBaseline{{$index}}")
+						a.hidden(href="#" ng-click="addBaseline($index)" id="btnAddBaseline_{{$index}}")
 							i.fa.fa-info
 				div.panel-collapse.collapse(id="collapse{{timeline._id}}")
 					.panel-body
 						div(id="timeline_{{$index}}", tm-timeline)
+		// Modal
 		div.modal.fade(id="addEventModal",role="dialog")
 			.modal-dialog
 				// Modal content
 				.modal-content
 					.modal-header
-						button.close(type="button",data-dismiss="modal") Cancel
+						button.close(type="button",data-dismiss="modal")
 						h4.modal-title Add Event
 					.modal-body.form-group
-						label Timeline index:
-						span(id="index")
+						label Timeline: {{$activeTimeline}}
+						br
 						label(for="caption") Caption:
 						input.form-control(id="caption",type="text")
 						label(for="description") Description:
@@ -39,4 +40,4 @@ block content
 						input.form-control(id="end",type="text")
 					.modal-footer
 						button.btn.btn-default(type="button",data-dismiss="modal") Cancel
-						button.btn.btn-primary(type="button",ng-click="addEvent($('#addEventModal #index').text())") Add
+						button.btn.btn-primary(type="button",ng-click="addEvent()") Add

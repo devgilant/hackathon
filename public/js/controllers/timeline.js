@@ -13,11 +13,12 @@ function TimelineController($scope, $http) {
     $scope.timelines = [];
     loadTimelines();
     $scope.addEvent = addEvent;
+    $scope.activeTimeline = null;
 
 
-    function addEvent(timeline_index) {
+    function addEvent() {
         // use scope.$index to find out which timeline are we on?
-        var timeline = $scope.timelines[timeline_index];
+        var timeline = $scope.activeTimeline;
         //console.log('timeline name: ' + timeline.name);
         // get event details from form
         var caption = $('#addEventModal #caption').val();
@@ -52,6 +53,7 @@ function TimelineController($scope, $http) {
                     timeline.events = loadTimelineEvents(timeline.events);
                 });
                 $scope.timelines = data;
+                $scope.activeTimeline = $scope.timelines[0];
             });
     };
 
