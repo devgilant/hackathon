@@ -33,10 +33,10 @@ function TimelineController($scope, $http) {
         // map to vis.js items
         var items = events.map(function(timeline){
          var item = {
-            start: timeline.startDate;
-            content: timeline.name;
-            description: timeline.description;
-            editable: false;
+            "start": timeline.startDate;
+            "content": timeline.name;
+            "description": timeline.description;
+            "editable": false;
          };
          if (timeline.endDate)
             item.end = timeline.endDate;
