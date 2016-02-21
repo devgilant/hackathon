@@ -11,6 +11,11 @@ timelineApp.controller('TimelineController', TimelineController);
 function TimelineController($scope, $http) {
     $scope.timelines = [];
     loadTimelines();
+    $scope.createTimeline = createTimeline;
+
+    function createTimeline(element, timeline) {
+        new vis.Timeline(element, timeline.events, {}});
+    }
 
     // ******************************
     // Internal methods
