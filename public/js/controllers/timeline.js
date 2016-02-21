@@ -15,7 +15,6 @@ function TimelineController($scope, $http) {
     $scope.addEvent = addEvent;
     $scope.activeTimeline = null;
 
-
     function addEvent() {
         // use scope.$index to find out which timeline are we on?
         var timeline = $scope.activeTimeline;
@@ -35,6 +34,7 @@ function TimelineController($scope, $http) {
                 $http.post('/rest/timelines/' + timeline.name + '/events', { "event_id": event_id })
                     .success(function(data) {
                         // update UI
+                        $('#addEventModal').modal('hide');
                     });
             });
     }
